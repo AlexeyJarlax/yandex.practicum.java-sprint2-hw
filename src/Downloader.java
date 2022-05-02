@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.HashMap;
+
 
 public class Downloader { // подгрузка и обработка отчетов
     private String currentYear;

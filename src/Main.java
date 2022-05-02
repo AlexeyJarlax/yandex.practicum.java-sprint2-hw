@@ -6,9 +6,8 @@ public class Main {
     public static Downloader downloader = new Downloader(); // подгрузчик отчетов
     public static ReportCalculator reportCalculator = new ReportCalculator(); // проверка на разногласия в отчетах
     public static ShowMonth showMonth = new ShowMonth(); //Вывести информацию о месячных отчётах
-    public static ShowYear showYear= new ShowYear(); // Вывести информацию о годовом отчёте
+    public static ShowYear showYear = new ShowYear(); // Вывести информацию о годовом отчёте
     public static Scanner scanner = new Scanner(System.in);
-    // static Timer Timer = new Timer(); // таймер 5 секунд на чтение отчетов
     public static ReconciliationOfReports reconciliationOfReports = new ReconciliationOfReports(); //класс для проверки на наличие и соответствие отчетов
 
     public static String wrongComand = "Ошибка ввода. Неверная команда!";
@@ -41,7 +40,7 @@ public class Main {
                 case "4":
                     if (downloader.isMonthlyMemoryOn) {
                         ShowMonth.showMonth(downloader.monthsList, downloader.monthMemories);
-                        //Timer.runTimerRun();
+
                     } else {
                         System.out.println(wrongReport);
                     }
@@ -50,7 +49,7 @@ public class Main {
                 case "5":
                     if (downloader.isYearMemoryOn) {
                         ShowYear.showYear(downloader.monthsList, downloader.yearMemory.currentYear, downloader.yearMemory.incomeList, downloader.yearMemory.expensesList);
-                        //Timer.runTimerRun();
+
                     } else {
                         System.out.println(wrongReport);
                     }
