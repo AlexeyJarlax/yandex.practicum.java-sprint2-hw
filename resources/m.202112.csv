@@ -1,0 +1,4 @@
+item_name,is_expense,quantity,sum_of_one
+Продажа водки,FALSE,1000,200
+Ларёк разливайка,TRUE,1,100000
+

@@ -2,9 +2,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class reportCalculator { // проверка на разногласия в отчетах
+public class ReportCalculator { // проверка на разногласия в отчетах
 
-    public List<String> coincidenceSerch(Map<String, String> monthsList, MonthMemory[] monthMemories, YearMemory yearMemory) {
+    public static List<String> coincidenceSerch(Map<String, String> monthsList, MonthMemory[] monthMemories, YearMemory yearMemory) {
         List<String> concurrence = new ArrayList<>();
 
         for (String monthNumber : monthsList.keySet()) {
@@ -25,7 +25,7 @@ public class reportCalculator { // проверка на разногласия 
         return concurrence;
     }
 
-    private boolean checkIfMonthsMismatch(int monthIndex, String monthName, MonthMemory[] monthMemories, YearMemory yearMemory) {
+    public static boolean checkIfMonthsMismatch(int monthIndex, String monthName, MonthMemory[] monthMemories, YearMemory yearMemory) {
 
         Map<String, Integer> reviewedMonthIncome = monthMemories[monthIndex].incomeList;
         Map<String, Integer> reviewedMonthExpenses = monthMemories[monthIndex].expensesList;

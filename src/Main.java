@@ -1,22 +1,22 @@
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     //объявляем рабочие классы:
     public static Downloader downloader = new Downloader(); // подгрузчик отчетов
-    public static reportCalculator reportCalculator = new reportCalculator(); // проверка на разногласия в отчетах
+    public static ReportCalculator reportCalculator = new ReportCalculator(); // проверка на разногласия в отчетах
     public static ShowMonth showMonth = new ShowMonth(); //Вывести информацию о месячных отчётах
     public static ShowYear showYear= new ShowYear(); // Вывести информацию о годовом отчёте
     public static Scanner scanner = new Scanner(System.in);
-    static Timer Timer = new Timer(); // таймер 5 секунд на чтение отчетов
+    // static Timer Timer = new Timer(); // таймер 5 секунд на чтение отчетов
+    public static ReconciliationOfReports reconciliationOfReports = new ReconciliationOfReports(); //класс для проверки на наличие и соответствие отчетов
 
-    public static String wrong1 = "Ошибка ввода. Неверная команда!";
-    public static String wrong2 = "Ошибка ввода. Неполные данные по отчетам!";
+    public static String wrongComand = "Ошибка ввода. Неверная команда!";
+    public static String wrongReport = "Ошибка ввода. Неполные данные по отчетам!";
 
     public static void main(String[] args) {
 
-        String userInput = "999999";
+        String userInput = "-0"; // Ввод пользователем значения по умолчанию не ломает цикл, пользователь может ввести -0 или 999999 и ничего не случится. А добавление числовой команды "-0" не планируется разработчиком)
 
         while (!userInput.equals("0")) { // обработка главного меню
             printMenu();
@@ -33,26 +33,26 @@ public class Main {
                     break;
 
                 case "3":
-                    if (dataSearch()) {
-                        checkList();
+                    if (reconciliationOfReports.dataSearch()) {
+                        reconciliationOfReports.checkList();
                     }
                     break;
 
                 case "4":
                     if (downloader.isMonthlyMemoryOn) {
                         ShowMonth.showMonth(downloader.monthsList, downloader.monthMemories);
-                        Timer.runTimerRun();
+                        //Timer.runTimerRun();
                     } else {
-                        System.out.println(wrong2);
+                        System.out.println(wrongReport);
                     }
                     break;
 
                 case "5":
                     if (downloader.isYearMemoryOn) {
                         ShowYear.showYear(downloader.monthsList, downloader.yearMemory.currentYear, downloader.yearMemory.incomeList, downloader.yearMemory.expensesList);
-                        Timer.runTimerRun();
+                        //Timer.runTimerRun();
                     } else {
-                        System.out.println(wrong2);
+                        System.out.println(wrongReport);
                     }
                     break;
 
@@ -60,7 +60,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println(wrong1);
+                    System.out.println(wrongComand);
                     break;
             }
         }
@@ -79,25 +79,5 @@ public class Main {
         System.out.println("0 - Выйти из приложения");
     }
 
-    private static boolean dataSearch() { // проверка на наличие отчетов
-        if (downloader.isMonthlyMemoryOn && downloader.isYearMemoryOn) {
-            return true;
 
-        } else if (!downloader.isMonthlyMemoryOn || !downloader.isYearMemoryOn) {
-            System.out.println(wrong2);
-            return false;
-        }
-        return false;
-    }
-
-    private static void checkList() { // проверка на соответствия в отчетах
-        List<String> concurrence = reportCalculator.coincidenceSerch(downloader.monthsList, downloader.monthMemories, downloader.yearMemory);
-
-        if (concurrence.isEmpty()) {
-            System.out.println("Сверка отчетов прошла успешно!");
-
-        } else {
-            System.out.print(wrong2);
-        }
-    }
 }

@@ -4,17 +4,17 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class Downloader { // подгрузка и обработка отчетов
     private String currentYear;
-    public Map<String, String> monthsList = new TreeMap<>();
+    public Map<String, String> monthsList = new HashMap<>(); // вернул на HashMap, чтобы показать реализацию метода с добавленным декабрём и ноябрем
 
     public MonthMemory[] monthMemories; // перегрузчик данных в отдельный класс
-    public boolean isMonthlyMemoryOn = false;
+    boolean isMonthlyMemoryOn = false;
 
     public YearMemory yearMemory; // перегрузчик данных в отдельный класс
-    public boolean isYearMemoryOn = false;
+    boolean isYearMemoryOn = false;
 
     Downloader() {
         currentYear = "2021";
@@ -61,18 +61,19 @@ public class Downloader { // подгрузка и обработка отчет
                     processedReports++;
 
                 } catch (IOException e) {
-                    System.out.println(Main.wrong2);
+                    System.out.println(Main.wrongReport);
                     System.out.println("Не найден файл отчета " + "m." + currentYear + monthNumber + ".csv !");
                 }
             }
         }
 
         if (processedReports == 0) {
-            System.out.println(Main.wrong2);
+            System.out.println(Main.wrongReport + "isMonthlyMemoryOn фэйл");
         } else {
             isMonthlyMemoryOn = true;
             System.out.println("Обработано месячных отчетов: " + processedReports);
         }
+
     }
 
     public void readYear() {
@@ -100,7 +101,7 @@ public class Downloader { // подгрузка и обработка отчет
             System.out.println("Годовой отчет успешно считан!");
 
         } catch (IOException e) {
-            System.out.println(Main.wrong2);
+            System.out.println(Main.wrongReport);
         }
 
     }
